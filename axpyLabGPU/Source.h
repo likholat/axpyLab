@@ -5,7 +5,7 @@
  size_t myGroupSize = 256;
 
 const char *saxpyKer =
-"__kernel void saxpy(const size_t n, const float a, __global const float *x, const size_t incx, __global float *y, const size_t incy) { \n"
+"__kernel void saxpy(const int n, const float a, __global const float *x, const int incx, __global float *y, const int incy) { \n"
 "  int i = get_global_id(0);                                \n"
 "  if (i * incy < n && i * incx < n)                                \n"
 "        y[i * incy] = y[i * incy] + a * x[i * incx];               \n"
@@ -52,7 +52,7 @@ void initializeKernel(cl_kernel& kernel, cl_context& context, cl_command_queue& 
 		char platformName[128];
 		clGetPlatformInfo(platforms[i], CL_PLATFORM_NAME,
 			128, platformName, nullptr);
-		std::cout << platformName << std::endl;
+		//std::cout << platformName << std::endl;
 
 		cl_uint devicesNum = 0;
 		clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_ALL, 0, 0, &devicesNum);
@@ -69,7 +69,7 @@ void initializeKernel(cl_kernel& kernel, cl_context& context, cl_command_queue& 
 				gpu_device = deviceIDs[j];
 			if (type == CL_DEVICE_TYPE_CPU)
 				cpu_device = deviceIDs[j];
-			std::cout << "device: " << deviceName << std::endl;
+			//std::cout << "device: " << deviceName << std::endl;
 		}
 	}
 
@@ -120,10 +120,10 @@ void initializeKernel(cl_kernel& kernel, cl_context& context, cl_command_queue& 
 
 	clBuildProgram(program, 1, &device, 0, 0, 0);
 
-	size_t length = 10000;
-	char* buffer = new char[length];
-	clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, length, buffer, NULL);
-	printf(buffer);
+	//size_t length = 10000;
+	//char* buffer = new char[length];
+	//clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, length, buffer, NULL);
+	//printf(buffer);
 
 	if (sizeof(FOrDType) == sizeof(float))
 		kernel = clCreateKernel(program, "saxpy", &error);

@@ -9,7 +9,7 @@ using namespace std;
 typedef float FOrDType;
 
 int main() {
-	const size_t n = pow(2,10), incx = 1, incy = 1;
+	const int n = pow(2,10), incx = 1, incy = 1;
 	const FOrDType a = (FOrDType)(1);
 	FOrDType *x = new FOrDType[n], *y = new FOrDType[n];
 
